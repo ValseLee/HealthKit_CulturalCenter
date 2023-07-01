@@ -7,15 +7,14 @@
 //
 
 import SwiftUI
+import Feature
+import commonUI
 
-struct HealthKit_CulturalCenterApp: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct HealthKit_CulturalCenterApp_Previews: PreviewProvider {
-    static var previews: some View {
-        HealthKit_CulturalCenterApp()
+@main
+struct HealthKit_CulturalCenterApp: App {
+    var body: some Scene {
+        WindowGroup {
+            Text("Mock")
+        }
     }
 }

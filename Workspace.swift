@@ -1,8 +1,10 @@
-//
-//  Workspace.swift
-//  HealthKit_CulturalCenterManifests
-//
-//  Created by Celan on 2023/06/30.
-//
+import ProjectDescription
 
-import Foundation
+let workspace = Workspace(
+    name: "HealthKit_CulturalCenter",
+    projects: [
+        "App/**",
+        "Feat/**",
+        "UI/**"
+    ]
+)

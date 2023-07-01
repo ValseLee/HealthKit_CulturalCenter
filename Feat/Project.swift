@@ -1,8 +1,10 @@
-//
-//  Project.swift
-//  HealthKit_CulturalCenterManifests
-//
-//  Created by Celan on 2023/06/30.
-//
+import ProjectDescription
+import ProjectDescriptionHelpers
 
-import Foundation
+let project = Project.framework(
+    name: "Feature",
+    platform: .iOS,
+    targetDependencies: [
+        
+    ]
+)
