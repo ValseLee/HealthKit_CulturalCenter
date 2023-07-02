@@ -1,12 +1,10 @@
 import ProjectDescription
 
 extension TargetDependency {
-    //    // MARK: SDK
-    //    public static let healthKit: Self = .sdk(name: "HealthKit", type: .framework)
-    //    public static let careKit: Self = .sdk(name: "CareKit", type: .framework)
-    //    public static let swiftUI: Self = .sdk(name: "SwiftUI", type: .framework)
+    // MARK: External
+    public static let careKit: Self = .external(name: "CareKit")
     
-    // MARK: Frameworks
+    // MARK: Internal Project > Frameworks
     public static let features: Self = .project(
         target: "Feature",
         path: .relativeToRoot("Feat/")
@@ -14,7 +12,20 @@ extension TargetDependency {
     
     public static let commonUI: Self = .project(
         target: "commonUI",
-        path: .relativeToRoot("UI")
+        path: .relativeToRoot("UI/")
+    )
+    
+    public static let appCore: Self = .project(
+        target: "AppCore",
+        path: .relativeToRoot("AppCore/")
+    )
+}
+
+extension Package {
+    // CareKit
+    public static let careKit: Self = .remote(
+        url: "https://github.com/carekit-apple/CareKit",
+        requirement: .branch("main")
     )
 }
 
@@ -42,7 +53,7 @@ extension Project {
         "com.\(orgName).\(appName)"
     }
     
-    /// Helper function to create the Project for this ExampleApp
+    // MARK: APP
     public static func mainApp(
         name: String,
         platform: Platform,
@@ -63,7 +74,7 @@ extension Project {
         return mainApp
     }
     
-    /// Frameworks
+    // MARK: Frameworks
     public static func framework(
         name: String,
         platform: Platform,
@@ -116,12 +127,15 @@ extension Project {
             infoPlist: .default,
             sources: [.glob(.testPath)],
             dependencies: [
-                .target(name: "\(name)")
+                .target(name: "\(name)"),
             ],
             settings: .celanDevTeam(config: [])
         )
         
-        return [mainTarget, testTarget]
+        return [
+            mainTarget,
+            testTarget
+        ]
     }
     
     public static func makeFrameworkProject(
@@ -138,6 +152,7 @@ extension Project {
             )
         )
     }
+    
     /// Helper function to create a framework target and an associated unit test target
     private static func makeFrameworkTargets(
         name: String,
@@ -168,6 +183,9 @@ extension Project {
             settings: .celanDevTeam(config: [])
         )
         
-        return [sources, tests]
+        return [
+            sources,
+            tests
+        ]
     }
 }

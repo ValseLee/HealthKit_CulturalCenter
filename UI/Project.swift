@@ -5,6 +5,6 @@ let project = Project.framework(
     name: "commonUI",
     platform: .iOS,
     targetDependencies: [
-        
+        .appCore,
     ]
 )

@@ -9,6 +9,6 @@ let project = Project.mainApp(
     platform: .iOS,
     targetDependencies: [
         .features,
-        .commonUI
+        .commonUI,
     ]
 )

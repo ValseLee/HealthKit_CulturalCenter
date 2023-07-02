@@ -7,3 +7,14 @@
 //
 
 import Foundation
+import CareKitStore
+
+public struct PersonalSleepInfo {
+    public var id: UUID
+    public var name: String
+    public var inBedTime: String
+    public var wakeUpTime: String
+    
+}
+
+extension PersonalSleepInfo: Equatable, Identifiable { }

@@ -6,10 +6,11 @@
 //
 
 import ProjectDescription
+import ProjectDescriptionHelpers
 
 let project = Project.framework(
-    name: "Core",
-    platform: .ios,
+    name: "AppCore",
+    platform: .iOS,
     targetDependencies: [
         .careKit
     ]

@@ -1,8 +1,8 @@
-//
-//  Dependencies.swift
-//  Config
-//
-//  Created by Celan on 2023/07/02.
-//
+import ProjectDescription
+import ProjectDescriptionHelpers
 
-import Foundation
+let dependencies = Dependencies(
+    swiftPackageManager: SwiftPackageManagerDependencies([
+        .careKit
+    ])
+)
