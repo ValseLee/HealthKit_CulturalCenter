@@ -8,7 +8,7 @@
 import SwiftUI
 import CareKitStore
 
-extension CareKitStore {
+extension OCKStore {
     enum Tasks: String, CaseIterable {
         case sleepRoutine
     }
