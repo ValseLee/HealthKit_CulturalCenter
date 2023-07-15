@@ -8,6 +8,14 @@
 import Foundation
 
 public extension Date {
+    static func getHour(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.hour], from: date).hour ?? 0
+    }
+    
+    static func getMinute(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.minute], from: date).minute ?? 0
+    }
+    
     func adding(days: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: days, to: self)!
     }
