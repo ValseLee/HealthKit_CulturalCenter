@@ -19,6 +19,9 @@ struct ContentView: View {
             
             SleepRoutineSettingView(currentTab: $tabs)
                 .tag(OCKStore.Tasks.sleep.rawValue)
+            
+            SleepRoutineTaskView()
+                .tag("\(OCKStore.Tasks.sleep.rawValue)Task")
         }
         .tabViewStyle(.page)
     }
