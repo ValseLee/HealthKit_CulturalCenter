@@ -8,27 +8,12 @@
 import CareKit
 import CareKitStore
 
-public struct CareKitStoreContainer {
-    public static let shared = CareKitStoreContainer()
-    
-    let storeManager: any OCKStoreProtocol = {
-        let store = OCKStore(name: "SleepStore", type: .inMemory)
-        store.addTasks([
-            .init(
-                id: "SleepRoutine1",
-                title: "SleepRoutine_Title",
-                carePlanUUID: .init(),
-                schedule: .dailyAtTime(
-                    hour: 11,
-                    minutes: 0,
-                    start: .distantPast,
-                    end: .distantFuture,
-                    text: "Schedule_Text"
-                )
-            )
-        ])
+final class CareKitStoreContainer {
+    public let myCareStore: OCKStore = {
+        let store = OCKStore(name: "MyCareStore", type: .inMemory)
         return store
     }()
     
-    private init() { }
+    // MARK: Life-Cycle
+    public init() { }
 }

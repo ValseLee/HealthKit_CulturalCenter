@@ -9,6 +9,41 @@ import CareKit
 import CareKitStore
 import UIKit
 
+final class CareViewController: OCKDailyPageViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func dailyPageViewController(
+        _ dailyPageViewController: OCKDailyPageViewController,
+        prepare listViewController: OCKListViewController,
+        for date: Date
+    ) {
+        let identifiers = [
+            OCKStore.Tasks.sleep.rawValue,
+            OCKStore.Tasks.diet.rawValue
+        ]
+        
+        var query = OCKTaskQuery(for: date)
+        query.ids = identifiers
+        query.excludesTasksWithNoEvents = true
+        
+        store.fetchAnyTasks(
+            query: query,
+            callbackQueue: .main) { result in
+                switch result {
+                case let .failure(failure): print(failure.errorDescription)
+                case let .success(success):
+                    if let sleepTask = success.first(where: {
+                        $0.id == OCKStore.Tasks.sleep.rawValue
+                    }) {
+                        
+                    }
+                }
+            }
+    }
+}
+
 struct CareKitUIContainer {
     enum CareKitUIStyles {
         case buttonLog(OCKAnyStoreProtocol)
