@@ -14,9 +14,8 @@ extension OCKStore {
         case diet
     }
     
-    func _initTasks() {
-        var tasks: [OCKTask] = []
-        tasks.append(self.makeTasks(on: 1))
+    private func _initTasks() {
+        let tasks: [OCKTask] = []
         
         addTasks(
             tasks,
@@ -30,16 +29,26 @@ extension OCKStore {
     }
     
     // MARK: Methods
-    func makeTasks(on days: Int) -> OCKTask {
+    public func makeTasks(
+        on date: Date,
+        _ instruction: String
+    ) async -> OCKTask {
         let task = OCKTask(
             id: OCKStore.Tasks.sleep.rawValue,
             title: OCKStore.Tasks.sleep.rawValue,
             carePlanUUID: nil,
-            // 11:00
-            schedule: .dailyAtTime(hour: 23, minutes: 0, start: .now.adding(days: -days), end: nil, text: nil)
+            schedule: .dailyAtTime(
+                hour: Date.getHour(from: date),
+                minutes: Date.getHour(from: date),
+                start: date,
+                end: nil,
+                text: instruction
+            )
         )
-        print(#function, task)
         
         return task
     }
 }
+
+// MARK: To get into EnvironmentObject
+extension OCKStore: ObservableObject { }
