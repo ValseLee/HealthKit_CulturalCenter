@@ -30,38 +30,8 @@ struct SleepRoutineSettingView: View {
             
             Button {
                 Task {
-                    do {
-                        // Init Store's Care Routine
-//                        let _ = await myCareStore.makeTasks(
-//                            on: date,
-//                            "Please Tap the button, when you're about to sleep :)"
-//                        )
-                        
-                        do {
-                            let _ = try await myCareStore.addTask(
-                                OCKTask(
-                                    id: OCKStore.Tasks.sleep.rawValue,
-                                    title: OCKStore.Tasks.sleep.rawValue,
-                                    carePlanUUID: nil,
-                                    schedule: .dailyAtTime(
-                                        hour: Date.getHour(from: date),
-                                        minutes: Date.getHour(from: date),
-                                        start: date,
-                                        end: nil,
-                                        text: "Please Tap the button, when you're about to sleep :)"
-                                    )
-                                )
-                            )
-                        } catch {
-                            dump(error)
-                        }
-                        
-                        withAnimation {
-                            isSleepCareRoutineConfirmed = true
-                        }
-                    }
+                    await confirmButtonTapped()
                 }
-                
             } label: {
                 VStack {
                     Text("Confirm")
@@ -80,6 +50,43 @@ struct SleepRoutineSettingView: View {
                     Text("GO To My Routine")
                 }
             }
+        }
+    }
+    
+    private func confirmButtonTapped() async {
+        do {
+            let sleepSchedule = OCKSchedule(
+                composing: [
+                    OCKScheduleElement(
+                        start: .now,
+                        end: nil,
+                        interval: DateComponents(
+                            calendar: .current,
+                            day: 1
+                        ),
+                        text: "6시간 이상의 수면을 자야 건강에 좋습니다.",
+                        duration: .hours(6)
+                    )
+                ]
+            )
+            
+            var sleepTask = OCKTask(
+                id: OCKStore.Tasks.sleep.rawValue,
+                title: "수면 습관",
+                carePlanUUID: nil,
+                schedule: sleepSchedule
+            )
+            
+            sleepTask.asset = "test.png"
+            sleepTask.instructions = "수면을 잘 취하고 다음 날 아침 체크해주세요."
+            
+            try await myCareStore.addTask(sleepTask)
+        } catch {
+            dump(error)
+        }
+        
+        withAnimation {
+            isSleepCareRoutineConfirmed = true
         }
     }
 }
